@@ -15,18 +15,20 @@ class Playlist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: _songs.length,
-        itemBuilder: (context, index) {
-          return Material(
-              child: ListTile(
-                  title: Text(_songs[index].name +
-                      ' ' +
-                      _songs[index].nameAlbum +
-                      ' ' +
-                      _songs[index].nameArtist +
-                      ' ' +
-                      _songs[index].year)));
-        });
-    throw UnimplementedError();
+      itemCount: _songs.length,
+      itemBuilder: (context, index) {
+        return Material(
+          child: ListTile(
+            title: Text(_songs[index].name +
+                ' ' +
+                _songs[index].nameAlbum +
+                ' ' +
+                _songs[index].nameArtist +
+                ' ' +
+                _songs[index].year),
+          ),
+        );
+      },
+    );
   }
 }
