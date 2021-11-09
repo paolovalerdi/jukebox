@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jukebox/src/jukebox_scaffold.dart';
+import 'package:jukebox/src/ui/main_layout.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Jukebox',
       theme: ThemeData.from(colorScheme: ColorScheme.dark()),
-      home: JukeBoxScaffold(),
+      home: Scaffold(
+        body: const MainLayout(),
+      ),
     );
   }
 }
