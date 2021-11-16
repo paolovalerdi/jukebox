@@ -123,13 +123,22 @@ class AlbumWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                img,
-                fit: BoxFit.cover,
+            Stack(alignment: Alignment.bottomRight, children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  img,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
+              FloatingActionButton(
+                mini: true,
+                onPressed: () {
+                  // agregar a playlist
+                },
+                child: const Icon(Icons.add),
+              ),
+            ]),
             SizedBox(height: 4),
             Text(
               title,

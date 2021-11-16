@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jukebox/src/ui/artist_bloc.dart';
 import 'package:jukebox/src/ui/content_panel.dart';
+import 'package:jukebox/src/ui/play_list.dart';
 import 'package:jukebox/src/ui/search_column.dart';
 
 class MainLayout extends StatefulWidget {
@@ -59,6 +60,17 @@ class _MainLayoutState extends State<MainLayout> {
                 ),
               ),
               const Spacer(),
+              Expanded(
+                flex: 3,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 48, horizontal: 10),
+                  child: PlayList(
+                    artist: state.artist,
+                    loading: state.loading,
+                  ),
+                ),
+              )
             ],
           );
         });
