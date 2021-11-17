@@ -66589,7 +66589,7 @@ a19(a){var s=0,r=P.G(t.z),q=1,p,o=[],n=this,m,l,k,j,i,h,g,f
 var $async$u6=P.C(function(b,c){if(b===1){p=c
 s=q}while(true)switch(s){case 0:q=3
 n.vZ(n.b.aax(!0))
-j=P.t_(" https://jukebox-server-web.herokuapp.com/artist",0,null)
+j=P.t_("https://jukebox-server-web.herokuapp.com/artist",0,null)
 i=t.N
 h=P.au(["Content-Type","application/json"],i,i)
 s=6
