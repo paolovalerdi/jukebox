@@ -56,7 +56,7 @@ class ArtistPageBloc extends Cubit<ArtistPageState> {
     try {
       emit(state.copyWith(loading: true));
       final request = await http.post(
-        Uri.parse("http://localhost:3000/artist"),
+        Uri.parse(" https://jukebox-server-web.herokuapp.com/artist"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({"name": name}),
       );
