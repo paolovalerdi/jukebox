@@ -6,10 +6,12 @@ import '../artist.dart';
 class ContentPanel extends StatelessWidget {
   final Artist? artist;
   final bool loading;
+  final void Function(Album) onAddToPlaylist;
 
   const ContentPanel({
     Key? key,
     this.artist,
+    required this.onAddToPlaylist,
     this.loading = false,
   }) : super(key: key);
 
@@ -55,6 +57,7 @@ class ContentPanel extends StatelessWidget {
                 listens: e.listeners ?? e.playcount ?? 0,
                 url: e.url,
                 playable: true,
+                onAddToPlaylist: onAddToPlaylist,
               ),
             )
             .toList(),
@@ -74,6 +77,7 @@ class ContentPanel extends StatelessWidget {
                 img: e.img,
                 listens: e.listeners ?? e.playcount ?? 0,
                 url: e.url,
+                onAddToPlaylist: (album) => {},
               ),
             )
             .toList(),
@@ -102,6 +106,7 @@ class AlbumWidget extends StatelessWidget {
   final String img;
   final bool playable;
   final String url;
+  final void Function(Album) onAddToPlaylist;
 
   const AlbumWidget({
     Key? key,
@@ -109,6 +114,7 @@ class AlbumWidget extends StatelessWidget {
     required this.listens,
     required this.img,
     required this.url,
+    required this.onAddToPlaylist,
     this.playable = false,
   }) : super(key: key);
 
@@ -131,13 +137,24 @@ class AlbumWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              FloatingActionButton(
-                mini: true,
-                onPressed: () {
-                  // agregar a playlist
-                },
-                child: const Icon(Icons.add),
-              ),
+              if (playable)
+                Positioned(
+                  bottom: 8,
+                  right: 8,
+                  child: FloatingActionButton(
+                    mini: true,
+                    backgroundColor: Colors.white,
+                    child: const Icon(Icons.add),
+                    onPressed: () => onAddToPlaylist(
+                      Album(
+                          title: title,
+                          playcount: 1,
+                          url: url,
+                          img: img,
+                          listeners: 1),
+                    ),
+                  ),
+                ),
             ]),
             SizedBox(height: 4),
             Text(

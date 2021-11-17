@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:jukebox/src/ui/playlist_store.dart';
+import 'package:jukebox/src/ui/song.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:jukebox/src/artist.dart';
@@ -32,7 +34,7 @@ class ArtistPageState {
 }
 
 class ArtistPageBloc extends Cubit<ArtistPageState> {
-  ArtistPageBloc() : super(const ArtistPageState()) {
+  ArtistPageBloc(this._playlistStore) : super(const ArtistPageState()) {
     _artistNameStream = BehaviorSubject.seeded("");
     _subscription = _artistNameStream
         .debounceTime(
@@ -42,6 +44,7 @@ class ArtistPageBloc extends Cubit<ArtistPageState> {
         .listen(_fetch);
   }
 
+  final PlaylistStore _playlistStore;
   late BehaviorSubject<String> _artistNameStream;
   late StreamSubscription<String> _subscription;
 
@@ -62,6 +65,17 @@ class ArtistPageBloc extends Cubit<ArtistPageState> {
     } on Exception catch (it) {
       emit(state.copyWith(exception: it));
     }
+  }
+
+  Future<void> addSongToPlaylist(Album album) async {
+    _playlistStore.insert(
+      Song(
+        title: album.title,
+        artist: state.artist?.name ?? "",
+        url: album.url,
+        img: album.img,
+      ),
+    );
   }
 
   @override

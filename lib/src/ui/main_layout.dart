@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jukebox/src/ui/artist_bloc.dart';
 import 'package:jukebox/src/ui/content_panel.dart';
 import 'package:jukebox/src/ui/play_list.dart';
+import 'package:jukebox/src/ui/playlist_panel.dart';
+import 'package:jukebox/src/ui/playlist_store.dart';
 import 'package:jukebox/src/ui/search_column.dart';
 
 class MainLayout extends StatefulWidget {
@@ -17,7 +19,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   @override
   void initState() {
-    _bloc = ArtistPageBloc();
+    _bloc = ArtistPageBloc(context.read<PlaylistStore>());
     super.initState();
   }
 
@@ -56,21 +58,21 @@ class _MainLayoutState extends State<MainLayout> {
                   child: ContentPanel(
                     artist: state.artist,
                     loading: state.loading,
+                    onAddToPlaylist: (album) => _bloc.addSongToPlaylist(album),
                   ),
                 ),
               ),
-              const Spacer(),
               Expanded(
-                flex: 3,
+                flex: 2,
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 48, horizontal: 10),
-                  child: PlayList(
-                    artist: state.artist,
-                    loading: state.loading,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 48,
+                    horizontal: 10,
                   ),
+                  child: const PlaylistPanel(),
                 ),
-              )
+              ),
+              const Spacer(),
             ],
           );
         });
